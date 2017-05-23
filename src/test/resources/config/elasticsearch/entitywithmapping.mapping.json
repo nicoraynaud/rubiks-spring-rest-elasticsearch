@@ -1,0 +1,12 @@
+{
+    "entitywithmapping": {
+        "properties": {
+            "id": {
+                "type": "long"
+            },
+            "numero": {
+                "type": "long"
+            }
+        }
+    }
+}

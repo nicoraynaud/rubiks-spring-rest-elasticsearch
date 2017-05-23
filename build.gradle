@@ -1,0 +1,64 @@
+
+plugins {
+    id "org.sonarqube" version "2.3"
+}
+
+apply plugin: 'java'
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.7.9'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'spring-rest-elasticsearch'
+    }
+}
+
+
+sourceCompatibility = 1.8
+
+jar.baseName = 'spring-rest-elasticsearch'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    baseName = 'spring-rest-elasticsearch'
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'http://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: commons_lang_version
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: spring_data_jpa_version
+    compile group: 'org.elasticsearch.client', name: 'rest', version: elasticsearch_client_transport_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson_version
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
+
+    testCompile group: 'junit', name: 'junit', version: junit_version
+    testCompile group: 'org.elasticsearch.client', name: 'transport', version: elasticsearch_client_transport_version
+    testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_version
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
+
+ext {
+    JAVA_OPTS = System.getenv('JAVA_OPTS')
+}

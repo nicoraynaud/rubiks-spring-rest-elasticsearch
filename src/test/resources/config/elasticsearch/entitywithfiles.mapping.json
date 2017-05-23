@@ -1,0 +1,12 @@
+{
+    "entitywithfiles": {
+        "properties": {
+            "id": {
+                "type": "long"
+            },
+            "numero": {
+                "type": "long"
+            }
+        }
+    }
+}

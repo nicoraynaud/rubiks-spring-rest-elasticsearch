@@ -1,0 +1,11 @@
+spring:
+    profiles:
+        active: dev
+
+coconut:
+    elasticsearch:
+        cluster-nodes: http://localhost:9200
+        context:
+        test-mode: true
+        username:
+        password:
