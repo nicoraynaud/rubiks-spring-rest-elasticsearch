@@ -6,6 +6,8 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 jacoco {
     toolVersion = '0.7.9'
@@ -23,7 +25,6 @@ sonarqube {
     }
 }
 
-
 sourceCompatibility = 1.8
 
 jar.baseName = 'spring-rest-elasticsearch'
@@ -34,8 +35,63 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    baseName = 'spring-rest-elasticsearch'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
 artifacts {
-    archives sourcesJar
+    archives sourcesJar, javadocJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Spring REST Elasticsearch'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'A Spring enabled library to query an Elasticsearch cluster through its REST API'
+                url 'https://github.com/nicoraynaud/spring-rest-elasticsearch'
+
+                scm {
+                    connection 'scm:git:https://github.com/nicoraynaud/spring-rest-elasticsearch.git'
+                    developerConnection 'scm:git:https://github.com/nicoraynaud/spring-rest-elasticsearch.git'
+                    url 'https://github.com/nicoraynaud/spring-rest-elasticsearch'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'nicoraynaud'
+                        name 'Nicolas Raynaud'
+                        email ''
+                    }
+                }
+            }
+        }
+    }
 }
 
 repositories {

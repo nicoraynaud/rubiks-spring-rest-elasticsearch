@@ -35,7 +35,7 @@ public class ElasticSearchTemplate {
 
     /**
      * Constructor
-     * @param context the context the elasticsearch cluster is available at (i.e.: http://es.intranet.world/my-context:9200 => "my-context").
+     * @param context the context the elasticsearch cluster is available at (i.e.: http://es.intranet.world/my-context:9200 = "my-context").
      *                this parameter can be null or empty if no context is used.
      * @param debug the debug mode for this instance.
      *              When set to yes, all indices will be automatically prefixed when used (ex: "test_d4a2e0d7-e968-4ca3-8c11-21d2d1b54e2c_{indice}")

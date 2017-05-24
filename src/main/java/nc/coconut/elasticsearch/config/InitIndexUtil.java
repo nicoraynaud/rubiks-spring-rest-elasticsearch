@@ -26,6 +26,7 @@ public class InitIndexUtil {
     /**
      * Indexes a given entity based on the configuration files
      * specified in the resources folder
+     * @param client The ES RestClient instance
      * @param elasticSearchTemplate the ES REST template client
      * @param entityClass the entity class to create the index for
      */

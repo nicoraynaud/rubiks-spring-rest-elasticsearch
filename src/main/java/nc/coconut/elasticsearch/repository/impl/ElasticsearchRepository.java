@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Created by 2617ray on 28/04/2017.
+ * Interface for all Elasticsearch repositories
+ *
+ * @param <T> The entity Type
+ * @param <ID> The entity's ID type
  */
 public interface ElasticsearchRepository<T, ID extends Serializable> {
 
@@ -39,9 +42,8 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
      *
      * @param id must not be {@literal null}.
      * @return the entity with the given id or {@literal null} if none found
-     * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    T findOne(ID id) throws IOException;
+    T findOne(ID id);
 
     /**
      * Returns whether an entity with the given id exists.
@@ -62,8 +64,8 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
     /**
      * Returns all instances of the type with the given IDs.
      *
-     * @param ids
-     * @return
+     * @param ids the list of ids of documents to retrieve
+     * @return the list of entities corresponding to the list of ids
      */
     Iterable<T> findAll(Iterable<ID> ids);
 
@@ -78,7 +80,8 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
      * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
      * entity instance completely.
      *
-     * @param entity
+     * @param entity the entity to index
+     * @param <S> The entity's type
      * @return the saved entity
      */
     <S extends T> S save(S entity);
@@ -86,7 +89,8 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
     /**
      * Saves all given entities.
      *
-     * @param entities
+     * @param entities the list of entities to index
+     * @param <S> The entity's type
      * @return the saved entities
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
@@ -103,7 +107,7 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
     /**
      * Deletes a given entity.
      *
-     * @param entity
+     * @param entity the entity to delete from the index
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
     void delete(T entity);
@@ -111,7 +115,7 @@ public interface ElasticsearchRepository<T, ID extends Serializable> {
     /**
      * Deletes the given entities.
      *
-     * @param entities
+     * @param entities the list of entities to delete from the index
      * @throws IllegalArgumentException in case the given {@link Iterable} is {@literal null}.
      */
     void delete(Iterable<? extends T> entities);
