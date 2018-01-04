@@ -157,8 +157,8 @@ Now, let's create a configuration section in our application.yml :
             test-mode: false                      # test-mode disabled
             username:                             # no username/password
             password:
-		    scan-base-package: nc.rubiks          # root package to scan at startup for indexed objects
-		    indexed-objects:                      # csv list of fullname classes to be synchronized when not annotated
+            scan-base-package: nc.rubiks          # root package to scan at startup for indexed objects
+            indexed-objects:                      # csv list of fullname classes to be synchronized when not annotated
             sync:
                 enabled: true                     # entity/document sync enabled
                 rate-milliseconds: 1000           # sync refresh rate
@@ -440,10 +440,18 @@ public class Contract implements Serializable {
 
 #### Configuring the Sync Job
 
-In order to work, the Sync job relies on several concepts and libs :
+In order to work, the Sync job relies on several keypoints :
+* The Spring JPA configuraiton (application.yml): You need to tell JPA to use the provided Interceptor to catch all Session events :
+```yaml
+spring:
+    jpa:
+        properties:
+            hibernate.session_factory.interceptor: nc.rubiks.core.search.elasticsearch.interceptor.ElasticsearchEntitySyncInterceptor
+```
+* The Lib configuration (application.yml) : ``rubiks.elasticsearch.sync.enabled: true`` to enable the feature.
 * Spring Scheduling : this is contained within Sprinb Boot, nothing is needed for it to work
-* Shedlock : This is a very simple library that enables the job to be compatible with multiple instances of the same application running in parallel. It uses a synchronization table to lock the job and ensure that only one instance of the job is running at a certain time. see [Shedlock](https://github.com/lukas-krecan/ShedLock) for more information.
-* Two tables in the database that need to be created :
+* Shedlock : This is a very simple library that enables the job to be compatible with multiple instances of the same application running in parallel. (it is embedded in the lib). *It uses a synchronization table to lock the job and ensure that only one instance of the job is running at a certain time. see [Shedlock](https://github.com/lukas-krecan/ShedLock) for more information.*
+* Two tables in the database that need to be created (by you or liquibase):
   * A liquibase script is embedded in the library for each of these tables, you can use them like this :
 
 ```xml
