@@ -2,10 +2,16 @@ spring:
     profiles:
         active: dev
 
-coconut:
+rubiks:
     elasticsearch:
         cluster-nodes: http://localhost:9200
         context:
         test-mode: true
-        username:
-        password:
+        username: int
+        password: int
+        scan-base-package: nc.rubiks
+        indexed-objects:
+        sync:
+            enabled: true
+            rate-milliseconds: 2000
+            nb-retry: 3

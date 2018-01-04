@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        add es_sync_action table to database
+    -->
+    <changeSet id="20171103000000-1" author="nicoraynaud">
+        <createTable tableName="elasticsearch_sync_action">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="obj_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="obj_id" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="action" type="varchar(25)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="nb_tryouts" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addDefaultValue tableName="elasticsearch_sync_action"
+                         columnName="nb_tryouts"
+                         defaultValueNumeric="0"/>
+    </changeSet>
+
+</databaseChangeLog>

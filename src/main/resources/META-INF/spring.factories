@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+nc.rubiks.core.search.elasticsearch.config.RubiksElasticsearchAutoConfiguration,\
+nc.rubiks.core.search.elasticsearch.config.RubiksElasticsearchSyncAutoConfiguration

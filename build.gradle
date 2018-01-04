@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'signing'
 
 jacoco {
     toolVersion = '0.7.9'
@@ -45,22 +45,22 @@ artifacts {
     archives sourcesJar, javadocJar
 }
 
-signing {
-    sign configurations.archives
-}
+//signing {
+//    sign configurations.archives
+//}
 
 uploadArchives {
     repositories {
         mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+//            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
+//
+//            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
 
             pom.project {
                 name 'Spring REST Elasticsearch'
@@ -103,16 +103,30 @@ repositories {
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: commons_lang_version
+    compile group: 'commons-io', name: 'commons-io', version: commons_io_version
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: spring_data_jpa_version
-    compile group: 'org.elasticsearch.client', name: 'rest', version: elasticsearch_client_transport_version
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-actuator', version: spring_boot_version
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
 
+    // https://www.elastic.co/guide/en/elasticsearch/client/java-rest/5.6/java-rest-high.html
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: es_client_version
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j_version
+    compile group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: log4j_version
+
+    // Scheduler lock (works with @Scheduled spring annotations)
+    // https://github.com/lukas-krecan/ShedLock
+    compile group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: scheduled_shedlock_version
+    compile group: 'net.javacrumbs.shedlock', name: 'shedlock-provider-jdbc-template', version: scheduled_shedlock_version
+
+    // for ElasticsearchEntityListener feature
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: hibernate_version
+
     testCompile group: 'junit', name: 'junit', version: junit_version
-    testCompile group: 'org.elasticsearch.client', name: 'transport', version: elasticsearch_client_transport_version
     testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_version
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logback_version
+    testCompile group: 'org.mockito', name: 'mockito-all', version: mockito_version
 }
 
 ext {

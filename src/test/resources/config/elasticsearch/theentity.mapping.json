@@ -1,0 +1,12 @@
+{
+    "theentity": {
+        "properties": {
+            "id": {
+                "type": "long"
+            },
+            "prop": {
+                "type": "keyword"
+            }
+        }
+    }
+}

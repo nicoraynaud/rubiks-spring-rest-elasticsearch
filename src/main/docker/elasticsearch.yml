@@ -1,10 +1,7 @@
-version: '1'
+version: '2'
 services:
-    spring-rest-elasticsearch-5.x:
-        image: docker.elastic.co/elasticsearch/elasticsearch:5.3.2
-        mem_limit: 2048m
-        # volumes:
-        #     - ~/volumes/jhipster/procuration/elasticsearch/:/usr/share/elasticsearch/data/
+    spring-rest-elasticsearch-6.0.0:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
         ports:
             - 9200:9200
             - 9300:9300
