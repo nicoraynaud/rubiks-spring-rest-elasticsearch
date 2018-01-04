@@ -10,6 +10,8 @@ This library is built on top of official [Elasticsearch Java High Level REST Cli
 > This Library is compatible with ES 6.0. Previous and later versions might not work properly : you should test first :).
 > Following version will be released to keep up with ES high level client versions.
 
+## Features
+
 This library brings the following features :
 * Use of annotations to mark Objects as Documents in Elasticsearch
 * Automatic creation of elasticsearch indexes (both mapping and settings) at startup by using local config file embedded in classpath : using [Indices API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices.html)
@@ -19,6 +21,14 @@ This library brings the following features :
 * Automatic management of dependencies between entities, when modifying an entity should trigger child entities to be reindexed as well.
 
 This library will always be a work in progress, please give me your feedback so we can improve it !
+
+## Compatibility matrix with ES
+
+| Elasticsearch  | rubiks-spring-rest-elasticsearch | hibernate | spring-boot |
+| -------------- | -------------------------------- | --------- | ---------- |
+| 6.1.x          | 2.5.0-SNAPSHOT                   | 5.2.12.Final | 1.5.8.RELEASE |
+| 6.0.0          | 2.4.0                            | 5.2.12.Final | 1.5.8.RELEASE |
+| 5.x            | 2.3.0                            | 5.2.12.Final | 1.5.8.RELEASE |
 
 ## Development
 
