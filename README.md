@@ -24,7 +24,7 @@ This library will always be a work in progress, please give me your feedback so 
 
 ## Compatibility matrix with ES
 
-| Elasticsearch  | rubiks-spring-rest-elasticsearch | hibernate | spring-boot |
+| elasticsearch  | rubiks-spring-rest-elasticsearch | hibernate | spring-boot |
 | -------------- | -------------------------------- | --------- | ---------- |
 | 6.1.x          | 2.5.0-SNAPSHOT                   | 5.2.12.Final | 1.5.8.RELEASE |
 | 6.0.0          | 2.4.0                            | 5.2.12.Final | 1.5.8.RELEASE |
