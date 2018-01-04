@@ -31,7 +31,7 @@ Here follows a docker-compose setup compatible with the library :
 ```yaml
     version: '2'
     services:
-        spring-rest-elasticsearch-6.0.0:
+        rubiks-spring-rest-elasticsearch-6.0.0:
             image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
             ports:
                 - 9200:9200
@@ -63,7 +63,7 @@ You need to reference this library and set the spring.elasticsearch.version prop
     dependencies {
         
         // Elasticsearch support
-        compile group: 'nc.rubiks', name: 'spring-rest-elasticsearch', version: spring_rest_elasticsearch_version
+        compile group: 'nc.rubiks', name: 'rubiks-spring-rest-elasticsearch', version: spring_rest_elasticsearch_version
         
     }
 ```
@@ -74,7 +74,7 @@ You need to reference this library and set the spring.elasticsearch.version prop
     <dependencies>
         <dependency>
             <groupId>nc.rubiks</groupId>
-            <artifactId>spring-rest-elasticsearch</artifactId>
+            <artifactId>rubiks-spring-rest-elasticsearch</artifactId>
             <version>${spring_rest_elasticsearch_version}</version>
         </dependency>
     </dependencies>
@@ -249,7 +249,7 @@ public class ClientSearchRepositoryImpl extends AbstractElasticsearchRepository<
 }
 ```
 
-You can know inject this repository in any other Spring Bean and access all its implemented methods : [See Interface Java Documentation](https://github.com/nicoraynaud/spring-rest-elasticsearch/blob/master/src/main/nc/rubiks/core/search/elasticsearch/repository/ElasticsearchRepository.java) :
+You can know inject this repository in any other Spring Bean and access all its implemented methods : [See Interface Java Documentation](https://github.com/nicoraynaud/rubiks-spring-rest-elasticsearch/blob/master/src/main/nc/rubiks/core/search/elasticsearch/repository/ElasticsearchRepository.java) :
 * Page<T> search(Pageable pageable, String query)
 * Page<T> search(Pageable pageable, QueryBuilder query)
 * SearchResponse search(Pageable pageable, QueryBuilder query, AggregationBuilder aggregation)
