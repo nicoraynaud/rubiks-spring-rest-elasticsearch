@@ -1,8 +1,9 @@
-# spring-rest-elasticsearch
+# rubiks-spring-rest-elasticsearch
 
-This library brings support of Elasticsearch v6.0 for Java Spring projects based on Spring Boot (and Spring Data). It was initially built because the spring-data-elasticsearch library does not yet support ES > 5.x and only uses the transport client.
+This library brings support for Elasticsearch v6.0 to Java Spring projects based on Spring Boot (and Spring Data). 
+It was initially built because the spring-data-elasticsearch library does not yet support ES > 5.x and only uses the transport client.
 
-This work is greatly inspired by the spring-data-elasticsearch library even if it does not meet its advanced feature set.
+This work is greatly inspired by the spring-data-elasticsearch hibernate-search libraries.
 
 This library is built on top of official [Elasticsearch Java High Level REST Client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.1/java-rest-high.html). All communications with an ES cluster is made through the REST API and not the Transport protocole (now deprecated by ES).
 
@@ -10,10 +11,14 @@ This library is built on top of official [Elasticsearch Java High Level REST Cli
 > Following version will be released to keep up with ES high level client versions.
 
 This library brings the following features :
+* Use of annotations to mark Objects as Documents in Elasticsearch
 * Automatic creation of elasticsearch indexes (both mapping and settings) at startup by using local config file embedded in classpath : using [Indices API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices.html)
-* Index, update, delete and search of any entity through the use of AbstractElasticsearchRepository class.
-* Search of any indexed entity using ES [Search API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html) language. 
-* Optional automatic synchronization between Hibernate persisted entities and ES documents (through the use of Spring Scheduling and Shedlock)
+* Index, update, delete and search of any entity through the use of AbstractElasticsearchRepository class (without almost any code to write).
+* Search of any indexed entity using ES [Search API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html) language and the powerfule [QueryBuilders](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/master/java-rest-high-query-builders.html). 
+* Automatic (optional) synchronization between Hibernate persisted entities and ES documents (through the use of Spring Scheduling and Shedlock)
+* Automatic management of dependencies between entities, when modifying an entity should trigger child entities to be reindexed as well.
+
+This library will always be a work in progress, please give me your feedback so we can improve it !
 
 ## Development
 
@@ -461,7 +466,7 @@ spring:
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    ...
+    <!-- your changelog ... -->
 
     <!-- adding support for ES sync job -->
     <include file="classpath:config/liquibase/changelog/changeset_added_es_sync_action.xml" relativeToChangelogFile="false"/>

@@ -21,22 +21,22 @@ jacocoTestReport {
 
 sonarqube {
     properties {
-        property 'sonar.projectName', 'spring-rest-elasticsearch'
+        property 'sonar.projectName', projectName
     }
 }
 
 sourceCompatibility = 1.8
 
-jar.baseName = 'spring-rest-elasticsearch'
+jar.baseName = projectName
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    baseName = 'spring-rest-elasticsearch'
+    baseName = projectName
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    baseName = 'spring-rest-elasticsearch'
+    baseName = projectName
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -63,16 +63,16 @@ uploadArchives {
 //            }
 
             pom.project {
-                name 'Spring REST Elasticsearch'
+                name 'Rubiks Spring REST Elasticsearch'
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'A Spring enabled library to query an Elasticsearch cluster through its REST API'
-                url 'https://github.com/nicoraynaud/spring-rest-elasticsearch'
+                url 'https://github.com/nicoraynaud/rubiks-spring-rest-elasticsearch'
 
                 scm {
-                    connection 'scm:git:https://github.com/nicoraynaud/spring-rest-elasticsearch.git'
-                    developerConnection 'scm:git:https://github.com/nicoraynaud/spring-rest-elasticsearch.git'
-                    url 'https://github.com/nicoraynaud/spring-rest-elasticsearch'
+                    connection 'scm:git:https://github.com/nicoraynaud/rubiks-spring-rest-elasticsearch.git'
+                    developerConnection 'scm:git:https://github.com/nicoraynaud/rubiks-spring-rest-elasticsearch.git'
+                    url 'https://github.com/nicoraynaud/rubiks-spring-rest-elasticsearch'
                 }
 
                 licenses {
