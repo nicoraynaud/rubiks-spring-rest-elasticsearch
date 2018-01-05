@@ -39,17 +39,17 @@ In order to run the unit tests, you will need to setup a local ES cluster node o
 Here follows a docker-compose setup compatible with the library :
 
 ```yaml
-    version: '2'
-    services:
-        rubiks-spring-rest-elasticsearch-6.0.0:
-            image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
-            ports:
-                - 9200:9200
-                - 9300:9300
-            environment:
-                - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-                - "xpack.security.enabled=false"
-                - "cluster.name=elasticsearch"
+version: '2'
+services:
+    rubiks-spring-rest-elasticsearch-6.0.0:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
+        ports:
+            - 9200:9200
+            - 9300:9300
+        environment:
+            - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+            - "xpack.security.enabled=false"
+            - "cluster.name=elasticsearch"
   
 ```
 
@@ -69,25 +69,39 @@ You need to reference this library and set the spring.elasticsearch.version prop
 
 #### Gradle
 
+Reference the library in your dependencies and set the Elasticsearch Version to use for SpringBoot : otherwise, SpringBoot automatically references an older ES version that conflicts.
+
 ```groovy
-    dependencies {
-        
-        // Elasticsearch support
-        compile group: 'nc.rubiks', name: 'rubiks-spring-rest-elasticsearch', version: spring_rest_elasticsearch_version
-        
-    }
+dependencies {
+    
+    // Elasticsearch support
+    compile group: 'io.github.nicoraynaud', name: 'rubiks-spring-rest-elasticsearch', version: spring_rest_elasticsearch_version
+    
+}
+```
+
+```properties
+elasticsearch.version=6.0.0
 ```
 
 #### Maven
 
+Reference the library in your dependencies and set the Elasticsearch Version to use for SpringBoot : otherwise, SpringBoot automatically references an older ES version that conflicts.
+
 ```xml
+<project>
+    <properties>
+        <elasticsearch.version>6.0.0</elasticsearch.version>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>nc.rubiks</groupId>
+            <groupId>io.github.nicoraynaud</groupId>
             <artifactId>rubiks-spring-rest-elasticsearch</artifactId>
             <version>${spring_rest_elasticsearch_version}</version>
         </dependency>
     </dependencies>
+</project>
 ```
 
 ### Development

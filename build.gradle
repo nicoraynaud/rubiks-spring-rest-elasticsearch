@@ -1,13 +1,13 @@
 
 plugins {
-    id "org.sonarqube" version "2.3"
+    id "org.sonarqube" version "2.6.1"
 }
 
 apply plugin: 'java'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 apply plugin: 'maven'
-//apply plugin: 'signing'
+apply plugin: 'signing'
 
 jacoco {
     toolVersion = '0.7.9'
@@ -28,6 +28,7 @@ sonarqube {
 sourceCompatibility = 1.8
 
 jar.baseName = projectName
+archivesBaseName = projectName
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     baseName = projectName
@@ -45,22 +46,22 @@ artifacts {
     archives sourcesJar, javadocJar
 }
 
-//signing {
-//    sign configurations.archives
-//}
+signing {
+    sign configurations.archives
+}
 
 uploadArchives {
     repositories {
         mavenDeployer {
-//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-//            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
-//
-//            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: hasProperty('ossrhUsername')?ossrhUsername:'', password: hasProperty('ossrhPassword')?ossrhPassword:'')
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: hasProperty('ossrhUsername')?ossrhUsername:'', password: hasProperty('ossrhPassword')?ossrhPassword:'')
+            }
 
             pom.project {
                 name 'Rubiks Spring REST Elasticsearch'
